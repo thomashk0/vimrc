@@ -8,7 +8,7 @@
 
 
 " Let vundle manage vundle
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 
 " Fast file switching

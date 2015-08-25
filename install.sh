@@ -11,7 +11,7 @@ ln -sf $SCRIPT_PATH/vimrc.bundles ~/.vimrc.bundles
 ln -sf $SCRIPT_PATH/vimrc.bepo ~/.vimrc.bepo
 ln -sf $SCRIPT_PATH/vim ~/.vim
 
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+git clone http://github.com/VundleVim/Vundle.Vim ~/.vim/bundle/Vundle.vim
 
 vim -u $SCRIPT_PATH/vimrc.install +PluginInstall
 
