@@ -1,11 +1,11 @@
-#My .vimrc
+#A Vim configuration
 
 ##Requirements
    * Linux distribution
    * Git
    * Vim 7.3+
 
-##Installation
+##Install on Linux
 
 ```bash
     $ git clone https://github.com/trihella/vimrc.git
@@ -16,7 +16,7 @@ And go !
 ```bash
     $ vim
 ```
-##Windows
+##Install on Windows (harder =p)
  * Install Git for windows, clone this repository, lets call %VIMRC_DIR% its absolute path.
  * Manually install vundle
  * Edit vimrc in the repository and put the absolute path where you install vundle in the following line
