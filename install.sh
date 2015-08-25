@@ -15,5 +15,4 @@ git clone http://github.com/VundleVim/Vundle.Vim ~/.vim/bundle/Vundle.vim
 
 vim -u $SCRIPT_PATH/vimrc.install +PluginInstall
 
-#rm -rf $TEMP_VUNDLE_PATH
 popd > /dev/null
