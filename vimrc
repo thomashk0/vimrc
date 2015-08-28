@@ -53,7 +53,6 @@
     " Vundle manage all plugins, configure the next line to point vundle
     " install directory
     set rtp+=~/.vim/bundle/Vundle.vim/
-    set rtp+=~/.vim/bundle/vimproc.vim/
     call vundle#begin()
     source ~/.vimrc.bundles
     call vundle#end()
@@ -154,12 +153,6 @@
         %s/\s\+$//ge
         exe "normal `z"
     endfunc
-
-    autocmd BufRead *.rs :set ft=rust
-    augroup whitespace
-        autocmd!
-        autocmd BufWrite *.hs :call DeleteTrailingWS()
-    augroup END
 " }
 " Plugins{
     " CTRL-P (Fuzzy finder) {
@@ -177,46 +170,11 @@
           \ 'file': '\v\.(bin|pyc|o)$',
           \ }
     "}
-    " vim-haskell {
-        let g:haskell_conceal_wide = 1
-        let g:haskell_conceal_enumerations = 1
-
-        set completeopt+=longest
-        " Use buffer words as default tab completion
-        let g:SuperTabDefaultCompletionType = '<c-x><c-p>'
-        " But provide (neco-ghc) omnicompletion
-        if has("gui_running")
-            imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-        else " no gui
-            if has("unix")
-                inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-            endif
-        endif
-
-        " Show types in completion suggestions
-        let g:necoghc_enable_detailed_browse = 1
-        " Type of expression under cursor
-        nmap <silent> <leader>ht :GhcModType<CR>
-        " Insert type of expression under cursor
-        nmap <silent> <leader>hT :GhcModTypeInsert<CR>
-        " GHC errors and warnings
-        nmap <silent> <leader>hc :SyntasticCheck ghc_mod<CR>
-        " Haskell Lint
-        " let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['haskell'] }
-        " nmap <silent> <leader>hl :SyntasticCheck hlint<CR>
-    " }
-    " Slime {
-    "    vmap <silent> <Leader>rs <Plug>SendSelectionToTmux
-    "    nmap <silent> <Leader>rs <Plug>NormalModeSendToTmux
-    "    nmap <silent> <Leader>rv <Plug>SetTmuxVars
-    " }
     " vim-airline {
         let g:airline#extensions#tabline#enabled = 1
-        let g:airline_theme="jellybeans"
         let g:airline_detect_modified=1
     " }
     " Python Mode {
-        "let g:pymode = 1
         let g:pymode_rope = 1
         let g:pymode_rope_goto_definition_bind = '<leader>rg'
 
@@ -242,14 +200,6 @@
     " }
     " Ctags {
         set tags+=./.tags;/,~/.vimtags
-    " }
-    " Undo Tree {
-        " let g:undotree_SetFocusWhenToggle=1
-        " nnoremap <F7> :GundoToggle<CR>
-    " }
-    " SuperTab {
-        " set omnifunc=syntaxcomplete#Complete
-        "let g:SuperTabDefaultCompletionType = "context"
     " }
     " Snipmate {
         let g:UltiSnipsUsePythonVersion = 2

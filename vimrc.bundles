@@ -10,7 +10,6 @@
 " Let vundle manage vundle
 Plugin 'VundleVim/Vundle.vim'
 
-
 " Fast file switching
 Plugin 'kien/ctrlp.vim'
 
@@ -20,15 +19,8 @@ Plugin 'Lokaltog/vim-easymotion'
 " A huge set of colorschemes
 Plugin 'flazz/vim-colorschemes'
 
-" Relative line numbering
-Plugin 'myusuf3/numbers.vim'
-
 " Nice info bar
 Plugin 'bling/vim-airline'
-" Plugin 'edkolev/tmuxline.vim'
-
-" Completion using tab
-Plugin 'SuperTab'
 
 " Snippets
 Plugin 'SirVer/ultisnips'
@@ -45,47 +37,13 @@ Plugin 'klen/python-mode'
 
 " Haskell support
 Plugin 'dag/vim2hs'
-" Plugin 'raichoo/haskell-vim'
-
-" Extra haskell pluging
-"" Needed for ghc mod
-" Plugin 'Shougo/vimproc'
-" Plugin 'eagletmt/ghcmod-vim'
-" Plugin 'vim-scripts/alex.vim'
-" Plugin 'vim-scripts/happy.vim'
-
 
 " Tag bar
 Plugin 'majutsushi/tagbar'
 
-" Rust support
-" Plugin 'wting/rust.vim'
-
-" Plugin 'zah/nimrod.vim'
-
-
-" ===
-" Plugins I'm not shure to keep
-" ===
-
 " Git integration
-"Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 
-""  " Tree of file changes
-"Plugin 'mbbill/undotree'
-"
 "" Make tables fast
-"Plugin 'godlygeek/tabular'
-"
-"
-"" Nice start screen
-"Plugin 'mhinz/vim-startify'
-"
-" Syntax checking while editing
-" Plugin 'scrooloose/syntastic'
-"
-"" Commands previously executed in ctrl-p
-"Plugin 'fisadev/vim-ctrlp-cmdpalette'
-"
-"" Fast surrounding bindings
-"Plugin 'tpope/vim-surround'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
