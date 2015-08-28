@@ -31,7 +31,7 @@
     set smartcase
     set hlsearch            " Highlight search results
     set incsearch           " Search while typing the search string
-    set lazyredraw
+    " set lazyredraw
     set magic
     set showmatch           " Show matching brackets, parenthesis ect...
     set mat=2
@@ -111,7 +111,7 @@
     set shiftwidth=4
     set softtabstop=4
     set smarttab
-    set autoindent
+    set smartindent
 
     "set lbr                " Break when a line goes over tw chars
     "set wrap               " Show long lines on multiple lines
@@ -120,34 +120,45 @@
     set laststatus=2        " Always show status bar
 " }
 " Keyboard mappings {
-
     set backspace=indent,eol,start
     set whichwrap+=<,>,h,l
 
-    let mapleader = ","
-    let g:mapleader = ","
-    nmap <leader>w :w!<CR>
+    " Leader is set as space
+    let mapleader = " "
+    " File modification
+    nmap <leader>s :w!<CR>
     nmap <leader>q :q!<CR>
-    map <leader>u :redo<CR>
-    nmap <leader>bd :Bclose<CR>
+
+    " CTRLP bindings
+    nmap <leader>rr :CtrlP<CR>
+    nmap <leader>ra :CtrlPBuffer<CR>
+    nmap <leader>ru :CtrlPMRUFiles<CR>
+    nmap <leader>ri :CtrlPTag<CR>
+
+    nmap <leader>gs :Gstatus
+
+    " map <leader>u :redo<CR>
+    " Tab switching
     nmap <leader>tn :tabnew<CR>
     nmap <leader>to :tabonly<CR>
     nmap <leader>tc :tabclose<CR>
     nmap <leader>tm :tabmove<CR>
     nmap <leader>tl :tabnext<CR>
     nmap <leader>tp :tabprevious<cr>
-    " nmap <F5> :!ctags -R &<cr><cr>
-    inoremap <leader><leader> <ESC>
 
-    let g:use_bepo_keyboard = 0
+    nmap <leader>fd :e ~/.vimrc<CR>
+    " imap <C-space> <C-X><C-P>
+
+    nmap <F6> :!ctags -R .<CR>
+    nmap <F7> <C-]>
+    nmap <S-F7> <C-T>
+
+    let g:use_bepo_keyboard = 1
     if (g:use_bepo_keyboard == 1)
         source ~/.vimrc.bepo
     endif
-
-    nmap <F4> :Ggrep expand("<cword>")
 " }
 " Extra Functions {
-    " Delete trailing white space on save
     func! DeleteTrailingWS()
         exe "normal mz"
         %s/\s\+$//ge
@@ -156,15 +167,6 @@
 " }
 " Plugins{
     " CTRL-P (Fuzzy finder) {
-        let g:ctrlp_map = ',e'
-        nmap ,g :CtrlPBufTag<CR>
-        nmap ,G :CtrlPBufTagAll<CR>
-        nmap ,f :CtrlPLine<CR>
-        nmap ,m :CtrlPMRUFiles<CR>
-        nmap ,c :CtrlPCmdPalette<CR>
-        " Don't change working directory
-        let g:ctrlp_working_path_mode = 0
-        " Ignore files on fuzzy finder
         let g:ctrlp_custom_ignore = {
           \ 'dir':  '\v[\/](\.git|\.hg|\.svn|dist)$',
           \ 'file': '\v\.(bin|pyc|o)$',
