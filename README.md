@@ -8,7 +8,7 @@
 ##Install on Linux
 
 ```bash
-    $ git clone https://github.com/trihella/vimrc.git
+    $ git clone https://github.com/thomashk0/vimrc.git
     $ cd vimrc && ./install.sh
 ```
 And go !
