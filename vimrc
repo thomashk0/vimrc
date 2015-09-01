@@ -198,28 +198,17 @@
         let g:airline_detect_modified=1
     " }
     " Python Mode {
-        let g:pymode_rope = 1
-        let g:pymode_rope_goto_definition_bind = '<leader>rg'
+        " Set which python version can be used values are `python`, `python3`,
+        " `disable`
+        let g:pymode_python = 'python'
 
-        " Documentation
-        let g:pymode_doc = 1
-        let g:pymode_doc_key = 'K'
+        " We do not want to run python scripts from vim
+        let g:pymode_run = 0
+        let g:pymode_breakpoint = 0
 
         "Linting
-        let g:pymode_lint = 1
-        let g:pymode_lint_checker = "pyflakes,pep8,mccabe"
-        let g:pymode_lint_ignore = "W0"
-        let g:pyflakes_use_quickfix = 0 " Ne pas utiliser quickfix
-
-        " Coloration syntaxique
-        let g:pymode_syntax = 1
-        let g:pymode_syntax_all = 1
-        let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-        let g:pymode_syntax_space_errors = g:pymode_syntax_all
-        " Don't autofold code
-        "let g:pymode_folding = 1
-
-        let g:pymode_indent = 1
+        " Do not open quickfix window automatically
+        let g:pymode_lint_cwindow = 0
     " }
     " Snipmate {
         let g:UltiSnipsUsePythonVersion = 2
