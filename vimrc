@@ -17,7 +17,7 @@
     set noswapfile
 
     set showcmd             " Print current command
-    set  nocp               " Vi compatibility disabled
+    set nocp                " Vi compatibility disabled
     set mouse=a             " Mouse active in vim shell version
     set so=7                " 7 line bellow vertical moves
     set nomousehide         " Always show cursor
@@ -69,49 +69,30 @@
     set cursorline          " Highlight the current line
     set t_Co=256            " 256 color mode
     syntax enable
-    set nu
+    set background=dark
+    colorscheme kolor
+    set number
     set foldmethod =syntax " Automatic folding
     if has('gui_running')
-       set go-=m            " Make gui looks like the shell, remove menu,
-       set go-=T            " side scroller ect...
-       set go-=r
-       set go-=l
-       set go-=rL
-       set go-=e
-       set guicursor=a:blinkon0
-       set background=dark
-       colorscheme kolor
-       set antialias
-       " set guifont=Monospace\ 9
-       set guifont=Consolas\ 11
-    else
-        if &term=="xterm-256color"
-            set background=dark
-            "let g:solarized_termcolors=256
-            let g:solarized_underline=0
-            colorscheme solarized
-        else
-            set background=dark
-            colorscheme kolor
-            " colorscheme bubblegum
-        endif
-        "colorscheme hybrid
+        " Make gui looks like the shell, remove menu, side scroller ect...
+        set go=agit " mTrlLe
+        set guicursor=a:blinkon0
+        set antialias
+        " set guifont=Monospace\ 9
+        set guifont=Consolas\ 11
     endif
 
     " Some color customisations
     hi clear SpellBad
     hi SpellBad cterm=underline
-    "hi ColorColumn ctermbg=236
-    "hi CursorLine ctermbg=236 cterm=NONE
-
-    " set tw=80              " Max line width 78 : Disabled, cursor column is a
+    " set tw=80              " Max line width 80 : Disabled, cursor column is a
                              " better indicator
     set cc=79               " Show cursor column
 
     set expandtab           " Replace tabs with spaces
-    set tabstop=4           " Tabulation width
-    set shiftwidth=4
-    set softtabstop=4
+    set tabstop=2           " Tabulation width
+    set shiftwidth=2
+    set softtabstop=2
     set smarttab
     set smartindent
 
@@ -127,6 +108,7 @@
 
     " Leader is set as space
     let mapleader = " "
+
     " File modification
     nmap <leader>s :w!<CR>
     nmap <leader>q :q!<CR>
@@ -165,7 +147,7 @@
     " Close completion win
     imap ,, <C-E>
 
-    nmap <F2> :help 
+    nmap <F2> :help
     nmap <F6> :!ctags -R .<CR>
     nmap <F3> :call DeleteTrailingWS()<CR>
     nmap <F7> <C-]>
