@@ -17,7 +17,7 @@
     set noswapfile
 
     set showcmd             " Print current command
-    set  nocp               " Vi compatibility disabled
+    set nocp                " Vi compatibility disabled
     set mouse=a             " Mouse active in vim shell version
     set so=7                " 7 line bellow vertical moves
     set nomousehide         " Always show cursor
@@ -31,14 +31,14 @@
     set smartcase
     set hlsearch            " Highlight search results
     set incsearch           " Search while typing the search string
-    set lazyredraw
+    " set lazyredraw
     set magic
     set showmatch           " Show matching brackets, parenthesis ect...
     set mat=2
     set noerrorbells        " No bell !
     set novisualbell
     set tm=500
-    "set formatprg=par\ -w78jr " Paragraph formating with par, give better
+    "set formatprg=par\ -w80jr " Paragraph formating with par, give better
                                " results but require par installed
     set spelllang=fr        " Spellchecking : FR
     "set nospell
@@ -46,14 +46,15 @@
                             " insert mode
     set fo-=r               " Do not automatically insert comment when pressing
                             " <ENTER> in insert mode
+    " Highlight some special chars like tabs, trailing whitespaces
     set list
     set listchars=tab:›-,trail:.,extends:#,nbsp:.
+    set tags+=./.tags;/,~/.vimtags
 " }
 " Bundles {
     " Vundle manage all plugins, configure the next line to point vundle
     " install directory
     set rtp+=~/.vim/bundle/Vundle.vim/
-    set rtp+=~/.vim/bundle/vimproc.vim/
     call vundle#begin()
     source ~/.vimrc.bundles
     call vundle#end()
@@ -68,51 +69,32 @@
     set cursorline          " Highlight the current line
     set t_Co=256            " 256 color mode
     syntax enable
-    set nu
+    set background=dark
+    colorscheme kolor
+    set number
     set foldmethod =syntax " Automatic folding
     if has('gui_running')
-       set go-=m            " Make gui looks like the shell, remove menu,
-       set go-=T            " side scroller ect...
-       set go-=r
-       set go-=l
-       set go-=rL
-       set go-=e
-       set guicursor=a:blinkon0
-       set background=dark
-       colorscheme kolor
-       set antialias
-       " set guifont=Monospace\ 9
-       set guifont=Consolas\ 11
-    else
-        if &term=="xterm-256color"
-            set background=dark
-            "let g:solarized_termcolors=256
-            let g:solarized_underline=0
-            colorscheme solarized
-        else
-            set background=dark
-            colorscheme kolor
-            " colorscheme bubblegum
-        endif
-        "colorscheme hybrid
+        " Make gui looks like the shell, remove menu, side scroller ect...
+        set go=agit " mTrlLe
+        set guicursor=a:blinkon0
+        set antialias
+        " set guifont=Monospace\ 9
+        set guifont=Consolas\ 11
     endif
 
     " Some color customisations
     hi clear SpellBad
     hi SpellBad cterm=underline
-    "hi ColorColumn ctermbg=236
-    "hi CursorLine ctermbg=236 cterm=NONE
-
-    " set tw=80              " Max line width 78 : Disabled, cursor column is a
+    " set tw=80              " Max line width 80 : Disabled, cursor column is a
                              " better indicator
     set cc=79               " Show cursor column
 
     set expandtab           " Replace tabs with spaces
-    set tabstop=4           " Tabulation width
-    set shiftwidth=4
-    set softtabstop=4
+    set tabstop=2           " Tabulation width
+    set shiftwidth=2
+    set softtabstop=2
     set smarttab
-    set autoindent
+    set smartindent
 
     "set lbr                " Break when a line goes over tw chars
     "set wrap               " Show long lines on multiple lines
@@ -121,135 +103,94 @@
     set laststatus=2        " Always show status bar
 " }
 " Keyboard mappings {
-
     set backspace=indent,eol,start
     set whichwrap+=<,>,h,l
 
-    let mapleader = ","
-    let g:mapleader = ","
-    nmap <leader>w :w!<CR>
+    " Leader is set as space
+    let mapleader = " "
+
+    " File modification
+    nmap <leader>s :w!<CR>
     nmap <leader>q :q!<CR>
-    map <leader>u :redo<CR>
-    nmap <leader>bd :Bclose<CR>
+
+    " CTRLP bindings
+    nmap <leader>rr :CtrlP<CR>
+    nmap <leader>ra :CtrlPBuffer<CR>
+    nmap <leader>ru :CtrlPMRUFiles<CR>
+    nmap <leader>ri :CtrlPTag<CR>
+
+    nmap <leader>gs :Gstatus
+    nmap <leader>gcc :Gcommit
+    nmap <leader>gca :Gcommit --amend
+
+    " map <leader>u :redo<CR>
+    " Tab switching
     nmap <leader>tn :tabnew<CR>
     nmap <leader>to :tabonly<CR>
     nmap <leader>tc :tabclose<CR>
     nmap <leader>tm :tabmove<CR>
     nmap <leader>tl :tabnext<CR>
     nmap <leader>tp :tabprevious<cr>
-    " nmap <F5> :!ctags -R &<cr><cr>
-    inoremap <leader><leader> <ESC>
 
-    let g:use_bepo_keyboard = 0
+    nmap <leader>fd :e ~/.vimrc<CR>
+
+    " Completion bindings
+    " See :help inc-completion
+    imap ,o <C-X><C-O>
+    imap ,l <C-X><C-L>
+    imap ,t <C-X><C-]>
+    imap ,p <C-X><C-P>
+    imap ,f <C-X><C-F>
+    imap ,n <C-N>
+    imap ,a <C-P>
+
+    " Close completion win
+    imap ,, <C-E>
+
+    nmap <F2> :help
+    nmap <F6> :!ctags -R .<CR>
+    nmap <F3> :call DeleteTrailingWS()<CR>
+    nmap <F7> <C-]>
+    nmap <S-F7> <C-O>
+    nmap <leader>n <C-]>
+    nmap <leader>a <C-O>
+    " nmap <leader>e <C-O>
+
+    let g:use_bepo_keyboard = 1
     if (g:use_bepo_keyboard == 1)
         source ~/.vimrc.bepo
     endif
-
-    nmap <F4> :Ggrep expand("<cword>")
 " }
 " Extra Functions {
-    " Delete trailing white space on save
     func! DeleteTrailingWS()
         exe "normal mz"
         %s/\s\+$//ge
         exe "normal `z"
     endfunc
-
-    autocmd BufRead *.rs :set ft=rust
-    augroup whitespace
-        autocmd!
-        autocmd BufWrite *.hs :call DeleteTrailingWS()
-    augroup END
 " }
 " Plugins{
     " CTRL-P (Fuzzy finder) {
-        let g:ctrlp_map = ',e'
-        nmap ,g :CtrlPBufTag<CR>
-        nmap ,G :CtrlPBufTagAll<CR>
-        nmap ,f :CtrlPLine<CR>
-        nmap ,m :CtrlPMRUFiles<CR>
-        nmap ,c :CtrlPCmdPalette<CR>
-        " Don't change working directory
-        let g:ctrlp_working_path_mode = 0
-        " Ignore files on fuzzy finder
         let g:ctrlp_custom_ignore = {
           \ 'dir':  '\v[\/](\.git|\.hg|\.svn|dist)$',
           \ 'file': '\v\.(bin|pyc|o)$',
           \ }
     "}
-    " vim-haskell {
-        let g:haskell_conceal_wide = 1
-        let g:haskell_conceal_enumerations = 1
-
-        set completeopt+=longest
-        " Use buffer words as default tab completion
-        let g:SuperTabDefaultCompletionType = '<c-x><c-p>'
-        " But provide (neco-ghc) omnicompletion
-        if has("gui_running")
-            imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-        else " no gui
-            if has("unix")
-                inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-            endif
-        endif
-
-        " Show types in completion suggestions
-        let g:necoghc_enable_detailed_browse = 1
-        " Type of expression under cursor
-        nmap <silent> <leader>ht :GhcModType<CR>
-        " Insert type of expression under cursor
-        nmap <silent> <leader>hT :GhcModTypeInsert<CR>
-        " GHC errors and warnings
-        nmap <silent> <leader>hc :SyntasticCheck ghc_mod<CR>
-        " Haskell Lint
-        " let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['haskell'] }
-        " nmap <silent> <leader>hl :SyntasticCheck hlint<CR>
-    " }
-    " Slime {
-    "    vmap <silent> <Leader>rs <Plug>SendSelectionToTmux
-    "    nmap <silent> <Leader>rs <Plug>NormalModeSendToTmux
-    "    nmap <silent> <Leader>rv <Plug>SetTmuxVars
-    " }
     " vim-airline {
         let g:airline#extensions#tabline#enabled = 1
-        let g:airline_theme="jellybeans"
         let g:airline_detect_modified=1
     " }
     " Python Mode {
-        "let g:pymode = 1
-        let g:pymode_rope = 1
-        let g:pymode_rope_goto_definition_bind = '<leader>rg'
+        " Set which python version can be used values are `python`, `python3`,
+        " `disable`
+        let g:pymode_python = 'python'
 
-        " Documentation
-        let g:pymode_doc = 1
-        let g:pymode_doc_key = 'K'
+        " We do not want to run python scripts from vim
+        let g:pymode_run = 0
+        let g:pymode_breakpoint = 0
 
         "Linting
-        let g:pymode_lint = 1
-        let g:pymode_lint_checker = "pyflakes,pep8,mccabe"
-        let g:pymode_lint_ignore = "W0"
-        let g:pyflakes_use_quickfix = 0 " Ne pas utiliser quickfix
-
-        " Coloration syntaxique
-        let g:pymode_syntax = 1
-        let g:pymode_syntax_all = 1
-        let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-        let g:pymode_syntax_space_errors = g:pymode_syntax_all
-        " Don't autofold code
-        "let g:pymode_folding = 1
-
-        let g:pymode_indent = 1
-    " }
-    " Ctags {
-        set tags+=./.tags;/,~/.vimtags
-    " }
-    " Undo Tree {
-        " let g:undotree_SetFocusWhenToggle=1
-        " nnoremap <F7> :GundoToggle<CR>
-    " }
-    " SuperTab {
-        " set omnifunc=syntaxcomplete#Complete
-        "let g:SuperTabDefaultCompletionType = "context"
+        " Do not open quickfix window automatically
+        let g:pymode_lint_cwindow = 0
     " }
     " Snipmate {
         let g:UltiSnipsUsePythonVersion = 2
