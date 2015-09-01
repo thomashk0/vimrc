@@ -41,31 +41,48 @@ they might seems strange or horrible on a AZERTY or QWERTY keyboard.
 
 ### File manpulation
 
-| Key         | Desc                                      |
+| Key         | Description                               |
 |-------------|-------------------------------------------|
 | \<leader\>s | Try to save current file                  |
 | \<leader\>q | Close current file, does not save changes |
 
 ### Tabs switching
 
-TODO
+| Key          | Desc                  |
+|--------------|-----------------------|
+| \<leader\>tc | Close the current tab |
+| \<leader\>tp | Go to previous tab    |
+| \<leader\>tl | Go to next tab        |
+
 
 ### File Opening/switching, Fuzzy finding
 
-They are (or try to be) prefixed with \<leader\>r.
+They are prefixed with \<leader\>r.
 
-| Key          | Desc                               |
+| Key          | Description                        |
 |--------------|------------------------------------|
 | \<leader\>rr | Open CTRL-P (Search on filesystem) |
 | \<leader\>ra | Open CTRL-P on buffers             |
 | \<leader\>ru | Open CTRL-P on recent files        |
 | \<leader\>ri | Open CTRL-P on tags                |
 
+### Completion bindings
+
+These bindings are for Insert mode
+
+| Key | Description                     |
+|-----|---------------------------------|
+| ,o  | Omnicompletion (\<C-X\>\<C-O\>) |
+| ,l  | Complete line (\<C-X\>\<C-L\>)  |
+| ,t  | Complete Tag (\<C-X\>\<C-]\>)   |
+| ,f  | Complete File (\<C-X\>\<C-F\>)   |
+
+
 ### Git related
 
 Prefixed with \<leader\>g
 
-| Key          | Desc               |
+| Key          | Description        |
 |--------------|--------------------|
 | \<leader\>gs | Git status         |
 | \<leader\>gd | Git diff with HEAD |

@@ -38,7 +38,7 @@
     set noerrorbells        " No bell !
     set novisualbell
     set tm=500
-    "set formatprg=par\ -w78jr " Paragraph formating with par, give better
+    "set formatprg=par\ -w80jr " Paragraph formating with par, give better
                                " results but require par installed
     set spelllang=fr        " Spellchecking : FR
     "set nospell
@@ -46,8 +46,10 @@
                             " insert mode
     set fo-=r               " Do not automatically insert comment when pressing
                             " <ENTER> in insert mode
+    " Highlight some special chars like tabs, trailing whitespaces
     set list
     set listchars=tab:›-,trail:.,extends:#,nbsp:.
+    set tags+=./.tags;/,~/.vimtags
 " }
 " Bundles {
     " Vundle manage all plugins, configure the next line to point vundle
@@ -136,6 +138,8 @@
     nmap <leader>ri :CtrlPTag<CR>
 
     nmap <leader>gs :Gstatus
+    nmap <leader>gcc :Gcommit
+    nmap <leader>gca :Gcommit --amend
 
     " map <leader>u :redo<CR>
     " Tab switching
@@ -147,11 +151,28 @@
     nmap <leader>tp :tabprevious<cr>
 
     nmap <leader>fd :e ~/.vimrc<CR>
-    " imap <C-space> <C-X><C-P>
 
+    " Completion bindings
+    " See :help inc-completion
+    imap ,o <C-X><C-O>
+    imap ,l <C-X><C-L>
+    imap ,t <C-X><C-]>
+    imap ,p <C-X><C-P>
+    imap ,f <C-X><C-F>
+    imap ,n <C-N>
+    imap ,a <C-P>
+
+    " Close completion win
+    imap ,, <C-E>
+
+    nmap <F2> :help 
     nmap <F6> :!ctags -R .<CR>
+    nmap <F3> :call DeleteTrailingWS()<CR>
     nmap <F7> <C-]>
-    nmap <S-F7> <C-T>
+    nmap <S-F7> <C-O>
+    nmap <leader>n <C-]>
+    nmap <leader>a <C-O>
+    " nmap <leader>e <C-O>
 
     let g:use_bepo_keyboard = 1
     if (g:use_bepo_keyboard == 1)
@@ -199,9 +220,6 @@
         "let g:pymode_folding = 1
 
         let g:pymode_indent = 1
-    " }
-    " Ctags {
-        set tags+=./.tags;/,~/.vimtags
     " }
     " Snipmate {
         let g:UltiSnipsUsePythonVersion = 2
