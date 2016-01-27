@@ -156,7 +156,7 @@
     nmap <leader>a <C-O>
     " nmap <leader>e <C-O>
 
-    let g:use_bepo_keyboard = 1
+    let g:use_bepo_keyboard = 0
     if (g:use_bepo_keyboard == 1)
         source ~/.vimrc.bepo
     endif
