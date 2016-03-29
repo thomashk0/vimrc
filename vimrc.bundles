@@ -7,6 +7,8 @@
 " ===========================================================================
 
 
+Plugin 'Shirk/vim-gas'
+
 " Let vundle manage vundle
 Plugin 'VundleVim/Vundle.vim'
 
@@ -47,3 +49,6 @@ Plugin 'tpope/vim-fugitive'
 "" Make tables fast
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+
+"" LLVM syntax
+Plugin 'Superbil/llvm.vim'

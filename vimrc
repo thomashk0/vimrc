@@ -147,7 +147,7 @@
     " Close completion win
     imap ,, <C-E>
 
-    nmap <F2> :help
+    nmap <F2> :TagbarToggle<CR>
     nmap <F6> :!ctags -R .<CR>
     nmap <F3> :call DeleteTrailingWS()<CR>
     nmap <F7> <C-]>
@@ -174,6 +174,7 @@
           \ 'dir':  '\v[\/](\.git|\.hg|\.svn|dist)$',
           \ 'file': '\v\.(bin|pyc|o)$',
           \ }
+        let g:ctrlp_extensions = ['buffertag', 'tag', 'line']
     "}
     " vim-airline {
         let g:airline#extensions#tabline#enabled = 1
@@ -193,7 +194,8 @@
         let g:pymode_lint_cwindow = 0
     " }
     " Snipmate {
-        let g:UltiSnipsUsePythonVersion = 2
+        " let g:UltiSnipsUsePythonVersion = 2
+        let g:UltiSnipsUsePythonVersion = 3
         let g:UltiSnipsExpandTrigger="<C-a>"
         let g:UltiSnipsJumpForwardTrigger="<C-b>"
         let g:UltiSnipsJumpBackwardTrigger="<C-z>"
