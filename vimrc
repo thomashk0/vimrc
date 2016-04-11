@@ -55,6 +55,7 @@
     " Vundle manage all plugins, configure the next line to point vundle
     " install directory
     set rtp+=~/.vim/bundle/Vundle.vim/
+    let g:enable_cpp_plugins = 0
     call vundle#begin()
     source ~/.vimrc.bundles
     call vundle#end()
@@ -200,5 +201,9 @@
         let g:UltiSnipsJumpForwardTrigger="<C-b>"
         let g:UltiSnipsJumpBackwardTrigger="<C-z>"
         let g:UltiSnipsEditSplit="vertical"
+    " }
+    " YCM {
+        let g:ycm_server_python_interpreter="/usr/bin/python3"
+        let g:ycm_global_ycm_extra_conf="~/.ycm_extra_conf.py"
     " }
 " }

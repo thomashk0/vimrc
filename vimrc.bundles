@@ -50,5 +50,11 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
+if (g:enable_cpp_plugins == 1)
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'rhysd/vim-clang-format'
+endif
+
+
 "" LLVM syntax
 Plugin 'Superbil/llvm.vim'
