@@ -1,10 +1,10 @@
 " vim: set sw=4 ts=4 sts=4 tw=80 foldmarker={,} foldlevel=0 foldmethod=marker nospell:
-" =========================================================================== "
-"       Vimrc
+" ============================================================================ "
+"   vim bepo keyboard mapping
 "
-"       Author: Thomas Hiscock
-"       Mail: hiscockt@minatec.inpg.fr
-" =========================================================================== "
+"   Author: Thomas Hiscock
+"   Mail:   thomashk@gmx.com
+" ============================================================================ "
 
 " FR-BEPO keyboard mappings {
 noremap n l
@@ -21,10 +21,10 @@ noremap è ^
 noremap È 0
 
 " Fast moves between windows
-map <C-r> <C-W>k
-map <C-s> <C-W>j
-map <C-t> <C-W>h
-map <C-n> <C-W>l
+nnoremap <C-r> <C-W>k
+nnoremap <C-s> <C-W>j
+nnoremap <C-t> <C-W>h
+nnoremap <C-n> <C-W>l
 
 highlight NbSp ctermbg=lightgray guibg=lightred
 match NbSp /\%xa0/

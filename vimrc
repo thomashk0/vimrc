@@ -1,12 +1,30 @@
-" vim: set sw=4 ts=4 sts=4 tw=80 foldmarker={,} foldlevel=0 foldmethod=marker nospell:
-" =========================================================================== "
-"       Vimrc
+" vim: set sw=4 ts=4 sts=4 tw=80 foldmarker={,} foldlevel=0 foldmethod=marker:
+" ============================================================================ "
+"   .vimrc
 "
-"       Author: Thomas Hiscock
-"       Mail: hiscockt@minatec.inpg.fr
-" =========================================================================== "
+"   Author: Thomas Hiscock
+"   Mail:   thomashk0@gmx.com
+" ============================================================================ "
 
-" Editor {
+" User configuration handling {
+let g:use_bepo_keyboard = 0
+
+    " User can override default variables by creating a .vimrc.local in the
+    " directory from which vim is run
+    try
+        source ~/.vimrc.local
+    catch
+    endtry
+
+    if !exists("g:use_bepo_keyboard")
+      let g:use_bepo_keyboard = 0
+    endif
+
+    if !exists("g:enable_cpp_plugins")
+      let g:enable_cpp_plugins = 0
+    endif
+" }
+" Editor Basic Options {
     "set autoread           " Autoreload file while editing
     set encoding=utf-8
     set fileencoding=utf-8
@@ -40,8 +58,8 @@
     set tm=500
     "set formatprg=par\ -w80jr " Paragraph formating with par, give better
                                " results but require par installed
-    set spelllang=fr        " Spellchecking : FR
-    "set nospell
+    set spelllang=en        " Spellchecking : EN
+    set spell
     set fo+=o               " Automatically insert a comment while passing in
                             " insert mode
     set fo-=r               " Do not automatically insert comment when pressing
@@ -51,11 +69,10 @@
     set listchars=tab:›-,trail:.,extends:#,nbsp:.
     set tags+=./.tags;/,~/.vimtags
 " }
-" Bundles {
-    " Vundle manage all plugins, configure the next line to point vundle
+" Vundle plugin handling {
+    " Vundle manage all plugins, configure the next line to point Vundle
     " install directory
     set rtp+=~/.vim/bundle/Vundle.vim/
-    let g:enable_cpp_plugins = 0
     call vundle#begin()
     source ~/.vimrc.bundles
     call vundle#end()
@@ -66,7 +83,7 @@
     filetype plugin on
 
 " }
-" UI Look {
+" User Interface Look {
     set cursorline          " Highlight the current line
     set t_Co=256            " 256 color mode
     syntax enable
@@ -79,8 +96,8 @@
         set go=agit " mTrlLe
         set guicursor=a:blinkon0
         set antialias
-        " set guifont=Monospace\ 9
-        set guifont=Consolas\ 11
+        set guifont=Monospace\ 9
+        " set guifont=Consolas\ 11
     endif
 
     " Some color customisations
@@ -88,7 +105,7 @@
     hi SpellBad cterm=underline
     " set tw=80              " Max line width 80 : Disabled, cursor column is a
                              " better indicator
-    set cc=79               " Show cursor column
+    set cc=80               " Show cursor column
 
     set expandtab           " Replace tabs with spaces
     set tabstop=2           " Tabulation width
@@ -114,7 +131,7 @@
     nmap <leader>s :w!<CR>
     nmap <leader>q :q!<CR>
 
-    " CTRLP bindings
+    " CTRL-P bindings
     nmap <leader>rr :CtrlP<CR>
     nmap <leader>ra :CtrlPBuffer<CR>
     nmap <leader>ru :CtrlPMRUFiles<CR>
@@ -123,6 +140,9 @@
     nmap <leader>gs :Gstatus
     nmap <leader>gcc :Gcommit
     nmap <leader>gca :Gcommit --amend
+
+    nmap <leader>gg :YcmCompleter GoToDefinition<CR>
+    nmap <leader>gf :YcmCompleter FixIt<CR>
 
     " map <leader>u :redo<CR>
     " Tab switching
@@ -148,6 +168,8 @@
     " Close completion win
     imap ,, <C-E>
 
+    vmap ,f :ClangFormat<CR>
+
     nmap <F2> :TagbarToggle<CR>
     nmap <F6> :!ctags -R .<CR>
     nmap <F3> :call DeleteTrailingWS()<CR>
@@ -157,7 +179,7 @@
     nmap <leader>a <C-O>
     " nmap <leader>e <C-O>
 
-    let g:use_bepo_keyboard = 0
+
     if (g:use_bepo_keyboard == 1)
         source ~/.vimrc.bepo
     endif
@@ -184,7 +206,7 @@
     " Python Mode {
         " Set which python version can be used values are `python`, `python3`,
         " `disable`
-        let g:pymode_python = 'python'
+        let g:pymode_python = 'python3'
 
         " We do not want to run python scripts from vim
         let g:pymode_run = 0
@@ -206,4 +228,18 @@
         let g:ycm_server_python_interpreter="/usr/bin/python3"
         let g:ycm_global_ycm_extra_conf="~/.ycm_extra_conf.py"
     " }
+    " Clang-format {
+        let g:clang_format#code_style = "mozilla"
+        let g:clang_format#style_options = {
+            \ "AlignAfterOpenBracket": "AlwaysBreak",
+            \ "AlignTrailingComments": "false"}
+
+    " }
+    " Vim-Tmux navigator {
+        " let g:tmux_navigator_no_mappings = 1
+        " nmap <C-n> :TmuxNavigateLeft
+        " nmap <C-s> :TmuxNavigateDown<CR>
+        " nmap <C-r> :TmuxNavigateUp<CR>
+        " nmap <C-t> :TmuxNavigateRight<CR>
+    " nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 " }
