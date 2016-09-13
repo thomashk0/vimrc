@@ -171,6 +171,7 @@ let g:use_bepo_keyboard = 0
     vmap ,f :ClangFormat<CR>
 
     nmap <F2> :TagbarToggle<CR>
+    imap <F5> <C-R>=strftime("%d %b %Y")<CR>
     nmap <F6> :!ctags -R .<CR>
     nmap <F3> :call DeleteTrailingWS()<CR>
     nmap <F7> <C-]>
@@ -190,6 +191,10 @@ let g:use_bepo_keyboard = 0
         %s/\s\+$//ge
         exe "normal `z"
     endfunc
+" }
+" Language Tweaks {
+    " Reckognize doxygen comments in vhdl
+    autocmd FileType vhdl set comments^=:--!
 " }
 " Plugins{
     " CTRL-P (Fuzzy finder) {
