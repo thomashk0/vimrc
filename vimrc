@@ -7,7 +7,7 @@
 " ============================================================================ "
 
 " User configuration handling {
-let g:use_bepo_keyboard = 0
+    let g:use_bepo_keyboard = 0
 
     " User can override default variables by creating a .vimrc.local in the
     " directory from which vim is run
@@ -34,6 +34,8 @@ let g:use_bepo_keyboard = 0
     set nowb
     set noswapfile
 
+    " Supposed to fix key latency issues with tmux
+    set timeoutlen=1000 ttimeoutlen=0
     set showcmd             " Print current command
     set nocp                " Vi compatibility disabled
     set mouse=a             " Mouse active in vim shell version
@@ -137,6 +139,10 @@ let g:use_bepo_keyboard = 0
     nmap <leader>ru :CtrlPMRUFiles<CR>
     nmap <leader>ri :CtrlPTag<CR>
 
+    nmap <leader>en :cnext<CR>
+    nmap <leader>ep :cprevious<CR>
+    nmap <leader>el :cl<CR>
+
     nmap <leader>gs :Gstatus
     nmap <leader>gcc :Gcommit
     nmap <leader>gca :Gcommit --amend
@@ -171,9 +177,9 @@ let g:use_bepo_keyboard = 0
     vmap ,f :ClangFormat<CR>
 
     nmap <F2> :TagbarToggle<CR>
-    imap <F5> <C-R>=strftime("%d %b %Y")<CR>
-    nmap <F6> :!ctags -R .<CR>
     nmap <F3> :call DeleteTrailingWS()<CR>
+    imap <F5> FIXME(ThomasH, <C-R>=strftime("%d %b %Y")<CR>):
+    nmap <F6> :!ctags -R .<CR>
     nmap <F7> <C-]>
     nmap <S-F7> <C-O>
     nmap <leader>n <C-]>
@@ -194,7 +200,15 @@ let g:use_bepo_keyboard = 0
 " }
 " Language Tweaks {
     " Reckognize doxygen comments in vhdl
-    autocmd FileType vhdl set comments^=:--!
+    function! SetupVHDLConfig()
+        set comments^=:--!
+        set comments^=:--
+        set foldmethod=marker
+        " Fold Doxygen groups
+        set foldmarker=@{,@}
+    endfunction
+
+    autocmd FileType vhdl call SetupVHDLConfig()
 " }
 " Plugins{
     " CTRL-P (Fuzzy finder) {
@@ -211,7 +225,7 @@ let g:use_bepo_keyboard = 0
     " Python Mode {
         " Set which python version can be used values are `python`, `python3`,
         " `disable`
-        let g:pymode_python = 'python3'
+        let g:pymode_python = 'python'
 
         " We do not want to run python scripts from vim
         let g:pymode_run = 0
@@ -222,8 +236,12 @@ let g:use_bepo_keyboard = 0
         let g:pymode_lint_cwindow = 0
     " }
     " Snipmate {
-        " let g:UltiSnipsUsePythonVersion = 2
-        let g:UltiSnipsUsePythonVersion = 3
+        if has('nvim')
+            let g:UltiSnipsUsePythonVersion = 3
+            let g:pymode_python = 'python3'
+        else
+            let g:UltiSnipsUsePythonVersion = 2
+        endif
         let g:UltiSnipsExpandTrigger="<C-a>"
         let g:UltiSnipsJumpForwardTrigger="<C-b>"
         let g:UltiSnipsJumpBackwardTrigger="<C-z>"
@@ -240,11 +258,4 @@ let g:use_bepo_keyboard = 0
             \ "AlignTrailingComments": "false"}
 
     " }
-    " Vim-Tmux navigator {
-        " let g:tmux_navigator_no_mappings = 1
-        " nmap <C-n> :TmuxNavigateLeft
-        " nmap <C-s> :TmuxNavigateDown<CR>
-        " nmap <C-r> :TmuxNavigateUp<CR>
-        " nmap <C-t> :TmuxNavigateRight<CR>
-    " nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 " }
