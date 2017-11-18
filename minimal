@@ -1,0 +1,149 @@
+" vim: set ft=vim sw=4 ts=4 sts=4 tw=80 foldmarker={,} foldlevel=0 foldmethod=marker:
+" A minimal Vim configuration
+
+let g:use_bepo_keyboard = 1
+
+set nocp
+call plug#begin('~/.vim/plugged')
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+    Plug 'christoomey/vim-tmux-navigator'
+
+    Plug 'godlygeek/tabular', { 'for' : ['tex'] }
+
+    let g:fzf_install = 'yes | ./install'
+    Plug 'junegunn/fzf', { 'do': g:fzf_install }
+    Plug 'junegunn/fzf.vim'
+call plug#end()
+
+filetype on
+filetype indent on
+filetype plugin on
+
+" No backup and swap files
+set nobackup nowb noswapfile
+
+" Styling
+set nospell
+" set background=dark
+colorscheme mini16
+" colorscheme pablo
+" slate
+syntax enable
+set number
+set list
+set listchars=tab:›-,trail:.,extends:#,nbsp:.
+set cc=80
+
+" Status bar
+set showcmd ruler laststatus=2
+set statusline=%!MyStatusLine()
+
+" Tab, whitespaces, indent
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set smarttab
+set smartindent
+set nowrap
+
+set ignorecase
+set hlsearch            " Highlight search results
+set incsearch           " Search while typing the search string
+set path+=**
+set wildmenu
+
+" Leader is set as space
+let mapleader = " "
+
+set backspace=indent,eol,start
+set whichwrap+=<,>,h,l
+
+if (g:use_bepo_keyboard == 1)
+    " Remap basic movements
+    noremap n l
+    noremap r k
+    noremap s j
+    noremap t h
+
+    noremap h t
+    noremap j s
+    noremap l n
+    noremap k r
+
+    noremap è ^
+    noremap È 0
+
+    " Fast moves between windows
+    nnoremap <C-r> <C-W>k
+    nnoremap <C-s> <C-W>j
+    nnoremap <C-t> <C-W>h
+    nnoremap <C-n> <C-W>l
+
+    highlight NbSp ctermbg=lightgray guibg=lightred
+    match NbSp /\%xa0/
+
+    " Completion bindings
+    " See :help inc-completion
+    imap ,o <C-X><C-O>
+    imap ,l <C-X><C-L>
+    imap ,t <C-X><C-]>
+    imap ,p <C-X><C-P>
+    imap ,f <C-X><C-F>
+    imap ,n <C-N>
+    imap ,a <C-P>
+    vmap ,f :ClangFormat<CR>
+
+    " File modification
+    nmap <leader>s :w!<CR>
+    nmap <leader>q :q!<CR>
+
+    " Tab switching
+    nmap <leader>tn :tabnew<CR>
+    nmap <leader>to :tabonly<CR>
+    nmap <leader>tc :tabclose<CR>
+    nmap <leader>tm :tabmove<CR>
+    nmap <leader>tl :tabnext<CR>
+    nmap <leader>tp :tabprevious<cr>
+
+    let g:UltiSnipsExpandTrigger="<C-a>"
+    let g:UltiSnipsJumpForwardTrigger="<C-b>"
+    let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+    let g:UltiSnipsEditSplit="vertical"
+
+    nmap ; :Buffers<CR>
+    nmap <Leader>rr :Files<CR>
+    nmap <Leader>rt :Tags<CR>
+endif
+
+nmap <F3> :call DeleteTrailingWS()<CR>
+imap <F5> FIXME(ThomasH, <C-R>=strftime("%d %b %Y")<CR>):
+
+" Utility functions {
+func! DeleteTrailingWS()
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal `z"
+endfunc
+
+function! MyStatusLine()
+    let statusline = ""
+    " Filename (F -> full, f -> relative)
+    let statusline .= "%f"
+    " Buffer flags
+    let statusline .= "%(%h%1*%m%*%r%w%) "
+    " File format and type
+    let statusline .= "(%{&ff}%(\/%Y%))"
+    " Left/right separator
+    let statusline .= "%="
+    " Line & column
+    let statusline .= "(%l,%c%V) "
+    " Character under cursor (decimal)
+    let statusline .= "%03.3b "
+    " Character under cursor (hexadecimal)
+    let statusline .= "0x%02.2B "
+    " File progress
+    let statusline .= "| %P/%L"
+    return statusline
+endfunction
+" }
