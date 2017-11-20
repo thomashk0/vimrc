@@ -1,5 +1,9 @@
 " vim: set ft=vim sw=4 ts=4 sts=4 tw=80 foldmarker={,} foldlevel=0 foldmethod=marker:
+" ============================================================================ "
 " A minimal Vim configuration
+"
+" Author: Thomas Hiscock <thomas.hiscock@wanadoo.fr>
+" ============================================================================ "
 
 let g:use_bepo_keyboard = 1
 
@@ -13,6 +17,10 @@ call plug#begin('~/.vim/plugged')
     let g:fzf_install = 'yes | ./install'
     Plug 'junegunn/fzf', { 'do': g:fzf_install }
     Plug 'junegunn/fzf.vim'
+
+    Plug 'tpope/vim-surround'
+    " Also supports other languages
+    Plug 'rhysd/vim-clang-format', { 'for' : ['c', 'cpp'] }
 call plug#end()
 
 filetype on
@@ -24,10 +32,12 @@ set nobackup nowb noswapfile
 
 " Styling
 set nospell
-" set background=dark
+
 colorscheme mini16
+" Good default alternatives
 " colorscheme pablo
-" slate
+" colorscheme slate
+
 syntax enable
 set number
 set list
