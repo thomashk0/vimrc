@@ -6,8 +6,11 @@
 " ============================================================================ "
 
 let g:use_bepo_keyboard = 1
+" Added temporarly to get rid of tab usage
+let g:use_tab_bindings = 0
 
 set nocp
+
 call plug#begin('~/.vim/plugged')
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
     Plug 'christoomey/vim-tmux-navigator'
@@ -19,6 +22,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf.vim'
 
     Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-commentary'
+
     " Also supports other languages
     Plug 'rhysd/vim-clang-format', { 'for' : ['c', 'cpp'] }
 call plug#end()
@@ -34,7 +39,7 @@ set nobackup nowb noswapfile
 set nospell
 
 colorscheme mini16
-" Good default alternatives
+" Other good alternatives are :
 " colorscheme pablo
 " colorscheme slate
 
@@ -104,17 +109,23 @@ if (g:use_bepo_keyboard == 1)
     imap ,a <C-P>
     vmap ,f :ClangFormat<CR>
 
+    " C-_ maps to C-/ in reality…
+    " In normal mode, also move down ;)
+    nmap <C-_> gccs
+    vmap <C-_> gc
+
     " File modification
     nmap <leader>s :w!<CR>
     nmap <leader>q :q!<CR>
 
-    " Tab switching
-    nmap <leader>tn :tabnew<CR>
-    nmap <leader>to :tabonly<CR>
-    nmap <leader>tc :tabclose<CR>
-    nmap <leader>tm :tabmove<CR>
-    nmap <leader>tl :tabnext<CR>
-    nmap <leader>tp :tabprevious<cr>
+    if (use_tab_bindings == 1)
+        nmap <leader>tn :tabnew<CR>
+        nmap <leader>to :tabonly<CR>
+        nmap <leader>tc :tabclose<CR>
+        nmap <leader>tm :tabmove<CR>
+        nmap <leader>tl :tabnext<CR>
+        nmap <leader>tp :tabprevious<cr>
+    endif
 
     let g:UltiSnipsExpandTrigger="<C-a>"
     let g:UltiSnipsJumpForwardTrigger="<C-b>"
@@ -122,8 +133,7 @@ if (g:use_bepo_keyboard == 1)
     let g:UltiSnipsEditSplit="vertical"
 
     nmap ; :Buffers<CR>
-    nmap <Leader>rr :Files<CR>
-    nmap <Leader>rt :Tags<CR>
+    nmap <Leader>f :Files<CR>
 endif
 
 nmap <F3> :call DeleteTrailingWS()<CR>
