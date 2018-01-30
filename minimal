@@ -13,6 +13,7 @@ set nocp
 
 call plug#begin('~/.vim/plugged')
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+    Plug 'rafi/awesome-vim-colorschemes'
     Plug 'christoomey/vim-tmux-navigator'
 
     Plug 'godlygeek/tabular', { 'for' : ['tex'] }
@@ -38,10 +39,14 @@ set nobackup nowb noswapfile
 " Styling
 set nospell
 
-colorscheme mini16
-" Other good alternatives are :
-" colorscheme pablo
-" colorscheme slate
+try
+    colorscheme molokai
+catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme mini16
+    " Other good alternatives are :
+    " colorscheme pablo
+    " colorscheme slate
+endtry
 
 syntax enable
 set number
@@ -134,6 +139,7 @@ if (g:use_bepo_keyboard == 1)
 
     nmap ; :Buffers<CR>
     nmap <Leader>f :Files<CR>
+    nmap <Leader>gf :GFiles<CR>
 endif
 
 nmap <F2> :call ToggleSpell()<CR>
@@ -184,4 +190,17 @@ function! MyStatusLine()
     let statusline .= "| %P/%L"
     return statusline
 endfunction
+" }
+" Per language tweaks {
+function! SetupVHDLConfig()
+    setlocal comments^=:--!
+    setlocal comments^=:--
+    setlocal foldmethod=marker
+    " Fold Doxygen groups
+    setlocal foldmarker=@{,@}
+endfunction
+autocmd FileType vhdl call SetupVHDLConfig()
+
+autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+autocmd FileType conf setlocal ts=8 sts=8 sw=8 noexpandtab
 " }
