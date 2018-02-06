@@ -28,6 +28,8 @@ call plug#begin('~/.vim/plugged')
 
     " Also supports other languages
     Plug 'rhysd/vim-clang-format', { 'for' : ['c', 'cpp'] }
+
+    Plug 'jceb/vim-orgmode'
 call plug#end()
 
 filetype on
